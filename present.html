@@ -651,22 +651,30 @@ function setView(v){document.querySelectorAll('[data-sv]').forEach(b=>b.setAttri
 document.querySelectorAll('[data-sv]').forEach(b=>b.addEventListener('click',()=>setView(b.dataset.sv)));
 function start(){if(started)return;started=true;
   if(!THREE.GLTFLoader){ld.innerHTML='<p>โหลดตัวดูโมเดลไม่สำเร็จ ลองรีเฟรชหน้า</p>';return;}
-  R=new THREE.WebGLRenderer({antialias:true});R.setPixelRatio(Math.min(devicePixelRatio||1,2));R.outputEncoding=THREE.sRGBEncoding;
-  R.toneMapping=THREE.ACESFilmicToneMapping;R.toneMappingExposure=1.05;R.shadowMap.enabled=true;R.physicallyCorrectLights=true;
-  st.insertBefore(R.domElement,ld);S=new THREE.Scene();S.background=new THREE.Color(0xbfd6e8);
+  R=new THREE.WebGLRenderer({antialias:true,powerPreference:'high-performance'});R.outputEncoding=THREE.sRGBEncoding;
+  R.toneMapping=THREE.ACESFilmicToneMapping;R.toneMappingExposure=1.0;R.shadowMap.enabled=true;R.shadowMap.type=THREE.PCFSoftShadowMap;R.physicallyCorrectLights=true;
+  R.domElement.setAttribute('aria-label','โมเดล SketchUp รัตนากร 10 หมุนและซูมดูรายละเอียดได้');
+  st.insertBefore(R.domElement,ld);S=new THREE.Scene();S.background=new THREE.Color(0xdbe5eb);
   C=new THREE.PerspectiveCamera(45,1,0.05,400);CT=new THREE.OrbitControls(C,R.domElement);CT.enableDamping=true;CT.maxPolarAngle=Math.PI*0.49;
-  S.add(new THREE.HemisphereLight(0xffffff,0xb8a88f,1.6));
-  const sun=new THREE.DirectionalLight(0xfff3e2,3.2);sun.position.set(-8,22,-16);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);
+  S.add(new THREE.HemisphereLight(0xf3f7ff,0xc5bdb1,1.35));
+  const sun=new THREE.DirectionalLight(0xfffaf3,2.8);sun.position.set(-8,22,-16);sun.castShadow=true;
+  const shadowSize=Math.min(R.capabilities.maxTextureSize,matchMedia('(pointer:coarse)').matches?2048:4096);sun.shadow.mapSize.set(shadowSize,shadowSize);sun.shadow.normalBias=0.025;
   Object.assign(sun.shadow.camera,{left:-14,right:14,top:14,bottom:-14,near:1,far:70});sun.shadow.bias=-0.0005;S.add(sun);sun.target.position.set(2,0,9);S.add(sun.target);
   const g=new THREE.Mesh(new THREE.PlaneGeometry(200,200),new THREE.MeshStandardMaterial({color:0x8c9194,roughness:1}));g.rotation.x=-Math.PI/2;g.position.y=-0.01;g.receiveShadow=true;S.add(g);
   const L=new THREE.GLTFLoader();if(window.MeshoptDecoder)L.setMeshoptDecoder(MeshoptDecoder);
   ld.innerHTML='<p>กำลังโหลดโมเดล… <span id="skpp">0%</span></p>';
   L.load('renders/house-model-lx.wasm',gl=>{model=gl.scene;model.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;
-      const ms=Array.isArray(o.material)?o.material:[o.material];ms.forEach(m=>{m.side=THREE.DoubleSide;if(m.transmission>0){m.transparent=true;m.opacity=0.35;m.transmission=0;}});}});
+      const ms=Array.isArray(o.material)?o.material:[o.material];ms.forEach(m=>{m.side=THREE.DoubleSide;m.clipShadows=true;
+        ['map','normalMap','roughnessMap','metalnessMap','aoMap','emissiveMap','alphaMap'].forEach(key=>{const tex=m[key];if(!tex)return;tex.anisotropy=R.capabilities.getMaxAnisotropy();tex.needsUpdate=true;});
+        if(m.transmission>0){m.transparent=true;m.opacity=0.35;m.transmission=0;}
+        if(m.transparent)m.depthWrite=false;m.needsUpdate=true;});}});
     S.add(model);ld.remove();setView(document.querySelector('[data-sv][aria-pressed="true"]').dataset.sv);},
     e=>{const p=document.getElementById('skpp');if(p&&e.total)p.textContent=Math.round(e.loaded/e.total*100)+'%';},
     ()=>{ld.innerHTML='<p>โหลดโมเดลไม่สำเร็จ ลองใหม่อีกครั้ง</p>';});
-  function rs(){const w=st.clientWidth,h=st.clientHeight;if(!w||!h)return;R.setSize(w,h,false);C.aspect=w/h;C.updateProjectionMatrix();}
+  function rs(){const w=st.clientWidth,h=st.clientHeight;if(!w||!h)return;
+    // Retain crisp edges on high-density displays without an unbounded mobile framebuffer.
+    const ratio=Math.min(window.devicePixelRatio||1,3,Math.sqrt(6000000/(w*h)));
+    R.setPixelRatio(ratio);R.setSize(w,h,false);C.aspect=w/h;C.updateProjectionMatrix();}
   new ResizeObserver(rs).observe(st);rs();
   (function loop(){CT.update();R.render(S,C);requestAnimationFrame(loop);})();}
 btn.addEventListener('click',start);
