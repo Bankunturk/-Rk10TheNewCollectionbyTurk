@@ -177,18 +177,21 @@ body{padding-bottom:76px}
   </section>
 
   <section class="skp" aria-label="โมเดล SketchUp 3D">
-    <h2 id="sketchup">โมเดล SketchUp หมุนดูได้</h2>
+    <h2 id="sketchup">โมเดลบ้าน 3D · แบบล่าสุดจากภาพ 32 รูป</h2>
     <div class="controls">
       <div class="seg" role="group" aria-label="มุมมองโมเดล">
         <button id="s-ext" data-sv="ext" aria-pressed="true">ภายนอก</button>
         <button id="s-f1" data-sv="f1" aria-pressed="false">ชั้น 1</button>
         <button id="s-f2" data-sv="f2" aria-pressed="false">ชั้น 2</button>
+        <button data-sv="kitchen" aria-pressed="false">ครัว</button>
+        <button data-sv="living" aria-pressed="false">ห้องโถง</button>
       </div>
-      <div class="hint">ตกแต่ง Modern Luxury ชุดเดียวกับภาพเรนเดอร์ · พื้นแกรนิตโต้ · หินกาบ · รถ</div>
+      <div class="hint">ครัวแนวตรง · ท็อปดำลายหินอ่อน · โถงขาว–ครีม · พื้นไม้ · ระเบียงกระจก</div>
     </div>
-    <div class="skpstage" id="skpstage"><div class="skpload" id="skpload"><div><button id="skpbtn" type="button">แตะเพื่อโหลดโมเดล 3D</button><p>ขนาดประมาณ 9.5 MB · ใช้เน็ตมือถือได้</p></div></div></div>
+    <div class="skpstage" id="skpstage"><div class="skpload" id="skpload"><div><button id="skpbtn" type="button">แตะเพื่อโหลดโมเดล 3D</button><p>โมเดลปรับใหม่ · ประมาณ 10.7 MB · หมุนและซูมได้</p></div></div></div>
+  <p class="hint"><a href="renders/house-model-approved32.glb" download>ดาวน์โหลดโมเดล 3D (.glb)</a></p>
   </section>
-  <h2 id="model" style="font-family:var(--f-display);font-size:20px;font-weight:600;margin:6px 0 0">แปลน 3D หมุนดูได้</h2>
+  <h2 id="model" style="font-family:var(--f-display);font-size:20px;font-weight:600;margin:6px 0 0">แปลนโครงสร้าง 3D และขนาดห้อง</h2>
   <div class="controls">
     <div class="seg" role="group" aria-label="เลือกชั้น">
       <button id="m-explode" data-mode="explode" aria-pressed="true">แยกชั้น</button>
@@ -638,12 +641,12 @@ requestAnimationFrame(tick);
 })();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/libs/meshopt_decoder.js"></script>
+<script src="renders/vendor/meshopt-decoder-1.3.js"></script>
 <script>
 (function(){
 const st=document.getElementById('skpstage'),ld=document.getElementById('skpload'),btn=document.getElementById('skpbtn');
 let R,S,C,CT,model,started=false,clip=null;
-const views={ext:{p:[10.5,6.5,-12],t:[2,2.6,5],c:null},f1:{p:[8.5,13,-3],t:[2,0.5,9.5],c:1.95},f2:{p:[8.5,16,-3],t:[2,3.5,9.5],c:5.5}};
+const views={ext:{p:[10.5,6.5,-12],t:[2,2.6,5],c:null},f1:{p:[8.5,13,-3],t:[2,0.5,9.5],c:1.95},f2:{p:[8.5,16,-3],t:[2,3.5,9.5],c:5.5},kitchen:{p:[0.65,1.85,16.3],t:[2.05,1.35,18.65],c:2.99},living:{p:[1.65,1.65,6.4],t:[2,1.25,9.8],c:2.99}};
 function setView(v){document.querySelectorAll('[data-sv]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.sv===v));
   if(!started)return;const o=views[v];C.position.set(...o.p);CT.target.set(...o.t);CT.update();
   R.clippingPlanes=o.c?[new THREE.Plane(new THREE.Vector3(0,-1,0),o.c)]:[];}
@@ -652,7 +655,7 @@ function start(){if(started)return;started=true;
   if(!THREE.GLTFLoader){ld.innerHTML='<p>โหลดตัวดูโมเดลไม่สำเร็จ ลองรีเฟรชหน้า</p>';return;}
   try{R=new THREE.WebGLRenderer({antialias:true,powerPreference:'high-performance'});}catch(e){started=false;ld.innerHTML='<p>อุปกรณ์นี้ไม่รองรับการแสดงผล 3D (WebGL) กรุณาลองเปิดด้วย Safari หรือ Chrome ที่เปิดใช้งานกราฟิก 3D</p>';return;}R.outputEncoding=THREE.sRGBEncoding;
   R.toneMapping=THREE.ACESFilmicToneMapping;R.toneMappingExposure=1.0;R.shadowMap.enabled=true;R.shadowMap.type=THREE.PCFSoftShadowMap;R.physicallyCorrectLights=true;
-  R.domElement.setAttribute('aria-label','โมเดล SketchUp รัตนากร 10 หมุนและซูมดูรายละเอียดได้');
+  R.domElement.setAttribute('aria-label','โมเดลรัตนากร 10 ปรับตามภาพ 32 รูป หมุนและซูมดูรายละเอียดได้');
   st.insertBefore(R.domElement,ld);S=new THREE.Scene();S.background=new THREE.Color(0xdbe5eb);
   C=new THREE.PerspectiveCamera(45,1,0.05,400);CT=new THREE.OrbitControls(C,R.domElement);CT.enableDamping=true;CT.maxPolarAngle=Math.PI*0.49;
   S.add(new THREE.HemisphereLight(0xf3f7ff,0xc5bdb1,1.35));
@@ -662,7 +665,7 @@ function start(){if(started)return;started=true;
   const g=new THREE.Mesh(new THREE.PlaneGeometry(200,200),new THREE.MeshStandardMaterial({color:0x8c9194,roughness:1}));g.rotation.x=-Math.PI/2;g.position.y=-0.01;g.receiveShadow=true;S.add(g);
   const L=new THREE.GLTFLoader();if(window.MeshoptDecoder)L.setMeshoptDecoder(MeshoptDecoder);
   ld.innerHTML='<p>กำลังโหลดโมเดล… <span id="skpp">0%</span></p>';
-  L.load('renders/house-model-lx.wasm',gl=>{model=gl.scene;model.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;
+  L.load('renders/house-model-approved32.glb',gl=>{model=gl.scene;model.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;
       const ms=Array.isArray(o.material)?o.material:[o.material];ms.forEach(m=>{m.side=THREE.DoubleSide;m.clipShadows=true;
         ['map','normalMap','roughnessMap','metalnessMap','aoMap','emissiveMap','alphaMap'].forEach(key=>{const tex=m[key];if(!tex)return;tex.anisotropy=R.capabilities.getMaxAnisotropy();tex.needsUpdate=true;});
         if(m.transmission>0){m.transparent=true;m.opacity=0.35;m.transmission=0;}
