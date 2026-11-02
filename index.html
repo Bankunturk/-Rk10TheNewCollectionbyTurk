@@ -658,9 +658,16 @@ function start(){if(started)return;started=true;
   R.domElement.setAttribute('aria-label','โมเดลรัตนากร 10 ปรับตามภาพ 32 รูป หมุนและซูมดูรายละเอียดได้');
   st.insertBefore(R.domElement,ld);S=new THREE.Scene();S.background=new THREE.Color(0xdbe5eb);
   C=new THREE.PerspectiveCamera(45,1,0.05,400);CT=new THREE.OrbitControls(C,R.domElement);CT.enableDamping=true;CT.maxPolarAngle=Math.PI*0.49;
-  S.add(new THREE.HemisphereLight(0xf3f7ff,0xc5bdb1,1.35));
-  const sun=new THREE.DirectionalLight(0xfffaf3,2.8);sun.position.set(-8,22,-16);sun.castShadow=true;
-  const shadowSize=Math.min(R.capabilities.maxTextureSize,matchMedia('(pointer:coarse)').matches?2048:4096);sun.shadow.mapSize.set(shadowSize,shadowSize);sun.shadow.normalBias=0.025;
+  // Soft sky and broad reflection sources keep glass and metal readable while orbiting.
+  const envScene=new THREE.Scene();envScene.background=new THREE.Color(0xcbdceb);
+  const envShell=new THREE.Mesh(new THREE.BoxGeometry(80,60,80),new THREE.MeshBasicMaterial({color:0xd9e3e9,side:THREE.BackSide}));envScene.add(envShell);
+  const envFloor=new THREE.Mesh(new THREE.PlaneGeometry(80,80),new THREE.MeshBasicMaterial({color:0x8c8579}));envFloor.rotation.x=-Math.PI/2;envFloor.position.y=-12;envScene.add(envFloor);
+  [[-18,14,-22,14,22,0xfff3df],[20,9,12,10,18,0xeaf4ff]].forEach(([x,y,z,w,h,c])=>{const panel=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({color:c,side:THREE.DoubleSide}));panel.position.set(x,y,z);panel.lookAt(0,3,0);envScene.add(panel);});
+  const pmrem=new THREE.PMREMGenerator(R);const environment=pmrem.fromScene(envScene,0.06);S.environment=environment.texture;pmrem.dispose();
+  envScene.traverse(o=>{if(o.isMesh){o.geometry.dispose();o.material.dispose();}});
+  S.add(new THREE.HemisphereLight(0xf3f7ff,0xc5bdb1,0.85));
+  const sun=new THREE.DirectionalLight(0xfff5e6,2.4);sun.position.set(-8,22,-16);sun.castShadow=true;
+  const shadowSize=Math.min(R.capabilities.maxTextureSize,matchMedia('(pointer:coarse)').matches?2048:4096);sun.shadow.mapSize.set(shadowSize,shadowSize);sun.shadow.normalBias=0.012;sun.shadow.radius=3;
   Object.assign(sun.shadow.camera,{left:-14,right:14,top:14,bottom:-14,near:1,far:70});sun.shadow.bias=-0.0005;S.add(sun);sun.target.position.set(2,0,9);S.add(sun.target);
   const g=new THREE.Mesh(new THREE.PlaneGeometry(200,200),new THREE.MeshStandardMaterial({color:0x8c9194,roughness:1}));g.rotation.x=-Math.PI/2;g.position.y=-0.01;g.receiveShadow=true;S.add(g);
   const L=new THREE.GLTFLoader();if(window.MeshoptDecoder)L.setMeshoptDecoder(MeshoptDecoder);
@@ -668,7 +675,15 @@ function start(){if(started)return;started=true;
   L.load('renders/house-model-approved32.glb',gl=>{model=gl.scene;model.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;
       const ms=Array.isArray(o.material)?o.material:[o.material];ms.forEach(m=>{m.side=THREE.DoubleSide;m.clipShadows=true;
         ['map','normalMap','roughnessMap','metalnessMap','aoMap','emissiveMap','alphaMap'].forEach(key=>{const tex=m[key];if(!tex)return;tex.anisotropy=R.capabilities.getMaxAnisotropy();tex.needsUpdate=true;});
-        if(m.transmission>0){m.transparent=true;m.opacity=0.35;m.transmission=0;}
+        // Correct imported material semantics without changing geometry, UVs or texture colors.
+        const materialName=(m.name||'').toLowerCase();
+        if(/^(lx_mirror|mirror|chrome|chrome1)$/.test(materialName)){m.metalness=1;m.roughness=materialName.includes('mirror')?0.035:0.16;}
+        if(/^(glass|_translucent_glass_gray_3|lx_smoked_glass)$/.test(materialName)){
+          m.transparent=true;m.opacity=materialName==='lx_smoked_glass'?0.32:0.18;m.metalness=0;m.roughness=0.08;
+          if(materialName==='_translucent_glass_gray_3')m.color.setHex(0xc4d3d8);
+        }
+        if(m.transmission>0){m.transparent=false;m.opacity=1;}
+        m.envMapIntensity=/mirror|chrome|stainless|brass/.test(materialName)?0.85:0.5;
         if(m.transparent)m.depthWrite=false;m.needsUpdate=true;});}});
     S.add(model);ld.remove();setView(document.querySelector('[data-sv][aria-pressed="true"]').dataset.sv);},
     e=>{const p=document.getElementById('skpp');if(p&&e.total)p.textContent=Math.round(e.loaded/e.total*100)+'%';},
