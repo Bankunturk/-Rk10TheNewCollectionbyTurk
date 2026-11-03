@@ -128,7 +128,7 @@ body{padding-bottom:76px}
 
   <section class="gallery" aria-label="ภาพเรนเดอร์">
     <h2>ภาพโครงการ · ชุดล่าสุด 32 ภาพ</h2>
-    <a class="ghero" href="#" data-i="0"><img style="aspect-ratio:3/2" src="renders/updated-20261102/01.jpg" alt="รัตนากร 10 แบบภายนอกล่าสุด ทาวน์โฮม 7 คูหา ราวระเบียงกระจกและรั้วเหล็กดำสลับไม้" fetchpriority="high"></a>
+    <a class="ghero" href="#" data-i="0"><img style="aspect-ratio:3/2" src="renders/updated-20261102/01.jpg" alt="ภาพจำลองรัตนากร 10 มุมรวมทั้งแถว 7 คูหา ชุดภาพปรับปรุง 2 พฤศจิกายน 2569" fetchpriority="high"></a>
     <div class="ggrid" id="ggrid"></div>
   </section>
 
@@ -164,7 +164,7 @@ body{padding-bottom:76px}
   </section>
 
   <section class="gallery" aria-label="สไตล์ตกแต่งให้เลือก">
-    <h2 id="styles">เลือกสไตล์ตกแต่ง · ของน้อยแต่สวย</h2>
+    <h2 id="styles">แนวคิดสไตล์ตกแต่งเพิ่มเติม</h2>
     <div class="controls">
       <div class="seg" role="group" aria-label="สไตล์ตกแต่ง">
         <button data-st="minimal_lux" aria-pressed="true">Minimal Luxury</button>
@@ -173,6 +173,7 @@ body{padding-bottom:76px}
       </div>
       <div class="hint" id="sthint"></div>
     </div>
+    <p class="hint">ภาพแนวคิดสไตล์เพิ่มเติมจากชุดเดิม แยกจากภาพโครงการล่าสุด 32 ภาพด้านบน</p>
     <div class="ggrid" id="sgrid"></div>
   </section>
 
@@ -238,7 +239,6 @@ body{padding-bottom:76px}
 <script>
 try{if(location.hash==='#model')setTimeout(()=>document.getElementById('model').scrollIntoView({block:'start'}),300);}catch(e){}
 (function(){
-const K4=["05-living-dining", "05b-living-tv", "06-kitchen", "07-master-bedroom", "00-day-street-angle", "00-dusk-street-angle", "01-front-facade", "00-front-night", "00-front-day", "09-bedroom2", "11-bedroom3", "04-stair-floor1", "12-bathroom1", "10-bathroom2", "08-ensuite", "02-floor1-overview", "03-floor2-overview", "st-minimal_lux-living", "st-minimal_lux-living2", "st-minimal_lux-kitchen", "st-minimal_lux-master", "st-minimal_lux-bedroom3", "st-japandi-living", "st-japandi-living2", "st-japandi-kitchen", "st-japandi-master", "st-japandi-bedroom3", "st-muji-living", "st-muji-living2", "st-muji-kitchen", "st-muji-master", "st-muji-bedroom3"];
 const R=[["01", "หน้าบ้าน มุมรวมทั้งแถว", "ภาพจำลองเพื่อแสดงแนวทางตกแต่ง"], ["02", "ห้องโถง มองจากหน้าบ้าน", "ภาพจำลองเพื่อแสดงแนวทางตกแต่ง"], ["03", "ห้องโถง มุมข้างโซฟา", "ภาพจำลองเพื่อแสดงแนวทางตกแต่ง"], ["04", "ห้องโถง มองออกหน้าบ้าน", "ภาพจำลองเพื่อแสดงแนวทางตกแต่ง"], ["05", "ห้องน้ำชั้นล่าง มองจากประตู", "ภาพจำลองเพื่อแสดงแนวทางตกแต่ง"], ["06", "บันไดและทางเข้าครัว", "ภาพจำลองเพื่อแสดงแนวทางตกแต่ง"], ["07", "ห้องน้ำชั้นล่าง อีกมุม", "ภาพจำลองเพื่อแสดงแนวทางตกแต่ง"], ["08", "ห้องนอนหลัง มุมข้างเตียง", "ภาพจำลองเพื่อแสดงแนวทางตกแต่ง"], ["09", "ห้องนอนหลัง มองจากประตู", "ภาพจำลองเพื่อแสดงแนวทางตกแต่ง"], ["10", "ทางเดินชั้นสอง", "ภาพจำลองเพื่อแสดงแนวทางตกแต่ง"], ["11", "ห้องน้ำชั้นบน มองออกจากห้อง", "ภาพจำลองเพื่อแสดงแนวทางตกแต่ง"], ["12", "หน้าบ้าน มุมถนน", "ภาพจำลองเพื่อแสดงแนวทางตกแต่ง"], ["13", "โรงจอดรถ เปิดประตูรั้ว", "ภาพจำลองเพื่อแสดงแนวทางตกแต่ง"], ["14", "ห้องน้ำชั้นบน มองจากประตู", "ภาพจำลองเพื่อแสดงแนวทางตกแต่ง"], ["15", "หน้าบ้านและโรงจอดรถ", "ภาพจำลองเพื่อแสดงแนวทางตกแต่ง"], ["16", "หน้าบ้าน มุมเฉียง", "ภาพจำลองเพื่อแสดงแนวทางตกแต่ง"], ["17", "หน้าบ้านกลางวัน บรรยากาศถนน", "ภาพจำลองเพื่อแสดงแนวทางตกแต่ง"], ["18", "หน้าบ้านกลางคืน", "ภาพจำลองเพื่อแสดงแนวทางตกแต่ง"], ["19", "ระเบียงชั้นสอง", "ภาพจำลองเพื่อแสดงแนวทางตกแต่ง"], ["20", "หน้าบ้านกลางวัน มุมรถผ่าน", "ภาพจำลองเพื่อแสดงแนวทางตกแต่ง"], ["21", "ครัว มุมซิงค์และตู้เย็น", "ภาพจำลองเพื่อแสดงแนวทางตกแต่ง"], ["22", "ครัว มุมเตามองไปตู้เย็น", "ภาพจำลองเพื่อแสดงแนวทางตกแต่ง"], ["23", "ครัว รายละเอียดเตาและฮูด", "ภาพจำลองเพื่อแสดงแนวทางตกแต่ง"], ["24", "หน้าบ้าน มุมตรง", "ภาพจำลองเพื่อแสดงแนวทางตกแต่ง"], ["25", "ระเบียง มองตามแนวอาคาร", "ภาพจำลองเพื่อแสดงแนวทางตกแต่ง"], ["26", "ห้องนอนใหญ่ ตู้ยื่นจากผนัง", "ภาพจำลองเพื่อแสดงแนวทางตกแต่ง"], ["27", "ห้องนอนใหญ่ มองไประเบียง", "ภาพจำลองเพื่อแสดงแนวทางตกแต่ง"], ["28", "ห้องนอนกลาง มุมข้างเตียง", "ภาพจำลองเพื่อแสดงแนวทางตกแต่ง"], ["29", "ห้องนอนกลาง มองจากประตู", "ภาพจำลองเพื่อแสดงแนวทางตกแต่ง"], ["30", "ห้องนอนกลาง มุมปลายเตียง", "ภาพจำลองเพื่อแสดงแนวทางตกแต่ง"], ["31", "โมเดลสองชั้น มุมบน", "ภาพแนวคิดโมเดล · ฐาน 60 × 60 ซม."], ["32", "โมเดลสองชั้น มุมเฉียง", "ภาพแนวคิดโมเดล · ฐาน 60 × 60 ซม."]];
 const imagePath=r=>"renders/updated-20261102/"+r[0]+".jpg";
 const g=document.getElementById('ggrid');
@@ -246,7 +246,8 @@ R.slice(1).forEach((r,i)=>{const b=document.createElement('button');b.className=
 const ST={minimal_lux:['Minimal Luxury','โทนเกรจ-ทราเวอร์ทีน ผนังฉาบสีปูนจุดเดียว ไม่มีของแต่งเกิน'],japandi:['Japandi','ไม้โอ๊คอ่อน เตียงพื้นต่ำ โคมกระดาษ ระแนงไม้หลังทีวี'],muji:['Muji','ขาว-ไม้แอชอ่อน เรียบที่สุด มีแค่ของที่ใช้จริง']};
 const SV=[['living','ห้องนั่งเล่น'],['living2','นั่งเล่น + ทานข้าว'],['kitchen','ครัว'],['master','ห้องนอนใหญ่'],['bedroom3','ห้องนอน 3']];
 const sg=document.getElementById('sgrid'),sh=document.getElementById('sthint');
-function showStyle(st){sg.innerHTML='';sh.textContent=ST[st][1];
+const mainImageCount=R.length;
+function showStyle(st){R.length=mainImageCount;sg.innerHTML='';sh.textContent=ST[st][1];
  SV.forEach(([v,t])=>{const i=R.length;R.push(['st-'+st+'-'+v,t,ST[st][0]]);const b=document.createElement('button');b.className='gthumb';b.dataset.i=i;b.innerHTML='<img loading="lazy" src="renders/lx-st-'+st+'-'+v+'.jpg" alt="'+t+' สไตล์ '+ST[st][0]+'"><span class="gcap">'+t+'<small>'+ST[st][0]+'</small></span>';sg.appendChild(b);});
  document.querySelectorAll('[data-st]').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.st===st)));}
 document.querySelectorAll('[data-st]').forEach(x=>x.addEventListener('click',()=>showStyle(x.dataset.st)));
