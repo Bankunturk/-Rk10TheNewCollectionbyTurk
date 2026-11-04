@@ -1,0 +1,158 @@
+[
+  {
+    "src": "renders/exterior-approved/front.jpg",
+    "th": "หน้าบ้าน มุมตรงครบ 7 หลัง",
+    "en": "Front elevation · all seven homes",
+    "type": "exterior"
+  },
+  {
+    "src": "renders/exterior-approved/left.jpg",
+    "th": "หน้าบ้าน มุมเฉียงจากซ้าย",
+    "en": "Street view · left angle",
+    "type": "exterior"
+  },
+  {
+    "src": "renders/exterior-approved/close.jpg",
+    "th": "หน้าบ้าน มุมใกล้",
+    "en": "Front facade · close view",
+    "type": "exterior"
+  },
+  {
+    "src": "renders/exterior-approved/carport.jpg",
+    "th": "โรงจอดรถ เปิดประตูรั้ว",
+    "en": "Open driveway and carport",
+    "type": "exterior"
+  },
+  {
+    "src": "renders/exterior-approved/balcony.jpg",
+    "th": "ระเบียงและรายละเอียดซี่เหล็ก",
+    "en": "Balcony and facade details",
+    "type": "exterior"
+  },
+  {
+    "src": "renders/updated-20261102/02.jpg",
+    "th": "ห้องโถง มองจากหน้าบ้าน",
+    "en": "Living room · view from the entrance",
+    "type": "interior"
+  },
+  {
+    "src": "renders/updated-20261102/03.jpg",
+    "th": "ห้องโถง มุมข้างโซฟา",
+    "en": "Living room · sofa-side view",
+    "type": "interior"
+  },
+  {
+    "src": "renders/updated-20261102/04.jpg",
+    "th": "ห้องโถง มองออกหน้าบ้าน",
+    "en": "Living room · looking toward the front",
+    "type": "interior"
+  },
+  {
+    "src": "renders/updated-20261102/05.jpg",
+    "th": "ห้องน้ำชั้นล่าง มองจากประตู",
+    "en": "Ground-floor bathroom · doorway view",
+    "type": "interior"
+  },
+  {
+    "src": "renders/updated-20261102/06.jpg",
+    "th": "บันไดและทางเข้าครัว",
+    "en": "Staircase and kitchen entrance",
+    "type": "interior"
+  },
+  {
+    "src": "renders/updated-20261102/07.jpg",
+    "th": "ห้องน้ำชั้นล่าง อีกมุม",
+    "en": "Ground-floor bathroom · alternate view",
+    "type": "interior"
+  },
+  {
+    "src": "renders/updated-20261102/08.jpg",
+    "th": "ห้องนอนหลัง มุมข้างเตียง",
+    "en": "Rear bedroom · bedside view",
+    "type": "interior"
+  },
+  {
+    "src": "renders/updated-20261102/09.jpg",
+    "th": "ห้องนอนหลัง มองจากประตู",
+    "en": "Rear bedroom · doorway view",
+    "type": "interior"
+  },
+  {
+    "src": "renders/updated-20261102/10.jpg",
+    "th": "ทางเดินชั้นสอง",
+    "en": "Upper-floor hallway",
+    "type": "interior"
+  },
+  {
+    "src": "renders/updated-20261102/11.jpg",
+    "th": "ห้องน้ำชั้นบน มองออกจากห้อง",
+    "en": "Upper-floor bathroom · looking out",
+    "type": "interior"
+  },
+  {
+    "src": "renders/updated-20261102/14.jpg",
+    "th": "ห้องน้ำชั้นบน มองจากประตู",
+    "en": "Upper-floor bathroom · doorway view",
+    "type": "interior"
+  },
+  {
+    "src": "renders/updated-20261102/21.jpg",
+    "th": "ครัว มุมซิงค์และตู้เย็น",
+    "en": "Kitchen · sink and refrigerator",
+    "type": "interior"
+  },
+  {
+    "src": "renders/updated-20261102/22.jpg",
+    "th": "ครัว มุมเตามองไปตู้เย็น",
+    "en": "Kitchen · cooking area toward refrigerator",
+    "type": "interior"
+  },
+  {
+    "src": "renders/updated-20261102/23.jpg",
+    "th": "ครัว รายละเอียดเตาและฮูด",
+    "en": "Kitchen · hob and hood details",
+    "type": "interior"
+  },
+  {
+    "src": "renders/updated-20261102/26.jpg",
+    "th": "ห้องนอนใหญ่ ตู้ยื่นจากผนัง",
+    "en": "Main bedroom · fitted wardrobe",
+    "type": "interior"
+  },
+  {
+    "src": "renders/updated-20261102/27.jpg",
+    "th": "ห้องนอนใหญ่ มองไประเบียง",
+    "en": "Main bedroom · looking toward the balcony",
+    "type": "interior"
+  },
+  {
+    "src": "renders/updated-20261102/28.jpg",
+    "th": "ห้องนอนกลาง มุมข้างเตียง",
+    "en": "Middle bedroom · bedside view",
+    "type": "interior"
+  },
+  {
+    "src": "renders/updated-20261102/29.jpg",
+    "th": "ห้องนอนกลาง มองจากประตู",
+    "en": "Middle bedroom · doorway view",
+    "type": "interior"
+  },
+  {
+    "src": "renders/updated-20261102/30.jpg",
+    "th": "ห้องนอนกลาง มุมปลายเตียง",
+    "en": "Middle bedroom · foot-of-bed view",
+    "type": "interior"
+  },
+  {
+    "src": "renders/updated-20261102/31.jpg",
+    "th": "โมเดลสองชั้น มุมบน",
+    "en": "Two-story concept model · overhead",
+    "type": "interior"
+  },
+  {
+    "src": "renders/updated-20261102/32.jpg",
+    "th": "โมเดลสองชั้น มุมเฉียง",
+    "en": "Two-story concept model · three-quarter view",
+    "type": "interior"
+  }
+]
