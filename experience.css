@@ -33,3 +33,26 @@ body.on-welcome{background:#111f19}.on-welcome .topbar{color:#fff}.on-welcome .b
 @media(prefers-reduced-motion:reduce){.welcome-bg,.welcome-slide{transition:none!important}}
 
 @media(min-width:801px) and (max-height:800px){.welcome-frame{height:calc(100svh - 445px);min-height:160px}}
+
+/* Full-bleed photography; only the peripheral foliage moves in the breeze. */
+.welcome{min-height:100svh;padding:120px 5% 140px;justify-content:center}
+.welcome-bg{filter:none;transform:none;background-size:cover;background-position:center 53%}
+.welcome-tint{background:linear-gradient(180deg,rgba(5,16,11,.55),rgba(5,16,11,.48) 35%,rgba(5,16,11,.5) 65%,rgba(5,16,11,.82))}
+.welcome .intro-copy{max-width:1100px;margin:0 auto;position:relative;z-index:2}
+.welcome .eyebrow{background:#1b2a1f66;backdrop-filter:blur(5px)}
+.welcome .greeting{font-size:clamp(75px,8.5vw,130px);line-height:1.16;text-shadow:0 4px 36px #0008;letter-spacing:-4px;margin-bottom:20px}
+.welcome .project-name{font-size:clamp(27px,3vw,42px);text-shadow:0 2px 22px #0009}
+.welcome .tagline{font-size:18px;text-shadow:0 2px 15px #000b}.welcome .tagline span[lang=en]{font-size:14px;color:#fff}
+.welcome-photo{display:none}.welcome-footer{position:absolute;left:5%;right:5%;bottom:32px;width:auto;max-width:none;margin:0;z-index:3}
+.welcome .step-label,.welcome .footer-note{color:#fff;text-shadow:0 2px 12px #000c}
+.breeze{position:absolute;pointer-events:none;z-index:1;width:250px;height:340px;opacity:.42;filter:blur(.8px);transform-origin:10% 90%;animation:branch-breeze 8s ease-in-out infinite;--mirror:1}
+.breeze svg{width:100%;height:100%;overflow:visible}.breeze-left{left:-105px;top:6%}.breeze-right{right:-105px;top:0;--mirror:-1;animation-duration:9.3s;animation-delay:-3s;transform-origin:10% 90%}
+.leaf{transform-box:fill-box;transform-origin:12% 90%;animation:leaf-breeze 5.5s ease-in-out infinite}.lb{animation-delay:-2s;animation-duration:6.3s}.lc{animation-delay:-4s;animation-duration:7.2s}
+@keyframes branch-breeze{0%,100%{transform:scaleX(var(--mirror)) rotate(-1.2deg)}50%{transform:scaleX(var(--mirror)) rotate(1.8deg)}}
+@keyframes leaf-breeze{0%,100%{transform:rotate(-1deg)}50%{transform:rotate(2.5deg)}}
+@media(min-width:801px) and (max-height:800px){.welcome{padding:105px 5% 125px}.welcome .greeting{font-size:88px;margin-bottom:15px}.welcome .project-name{font-size:32px}.welcome .tagline{font-size:15px}.welcome .tagline span[lang=en]{font-size:12px}.welcome-footer{bottom:25px}}
+@media(max-width:800px){.welcome{padding:120px 5% 155px}.welcome .greeting{font-size:72px;gap:18px;letter-spacing:-3px}.welcome .greeting em{letter-spacing:-4px}.welcome .project-name{font-size:30px}.welcome .project-name span{font-size:26px;margin-top:7px}.welcome .tagline{font-size:15px;margin-top:15px}.welcome .tagline span[lang=en]{font-size:11px;margin-top:4px}.welcome-footer{bottom:28px;left:5%;right:5%}.breeze{width:190px;height:270px;opacity:.32}.breeze-left{left:-100px;top:9%}.breeze-right{right:-115px;top:4%}.welcome .step-label{font-size:10px}}
+@media(max-width:420px){.welcome .greeting{font-size:61px;gap:14px}.welcome .project-name{font-size:27px}.welcome .project-name span{font-size:23px}.welcome .tagline{font-size:13px}.welcome .tagline span[lang=en]{font-size:10px}.welcome .step-label{font-size:9px;max-width:175px}.welcome-footer{bottom:24px}.welcome .eyebrow{margin-bottom:24px}}
+@media(prefers-reduced-motion:reduce){.breeze,.leaf{animation:none!important}.breeze-right{transform:scaleX(-1)}}
+
+.breeze{opacity:.2;filter:blur(2px);width:190px;height:285px}.breeze-left{left:-125px;top:7%}.breeze-right{right:-140px;top:3%}@media(max-width:800px){.breeze{opacity:.17;width:155px;height:235px}.breeze-left{left:-112px}.breeze-right{right:-125px}}

@@ -21,7 +21,7 @@
     renderUnits();renderGallery();if(agent)updateLink();
   }
   document.querySelectorAll('[data-language]').forEach(b=>b.addEventListener('click',()=>applyLanguage(b.dataset.language)));
-  const welcomeImages = ['front','left','close','carport'];
+  const welcomeImages = ['left','front','close','carport'];
   function stopWelcomeSlides(){clearInterval(welcomeTimer);welcomeTimer=null;}
   function startWelcomeSlides(){
     stopWelcomeSlides();
