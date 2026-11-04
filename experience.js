@@ -5,6 +5,7 @@
     th: {welcomeStep:'The New collection\n19 ตารางวา ที่ใส่ใจทุกตารางเมตร',next:'ถัดไป',made:'ทุกพื้นที่ เริ่มจากความใส่ใจ',back:'ย้อนกลับ',formTitle:'ให้บ้านหลังนี้\nเชื่อมต่อกับลูกค้าของคุณ',formIntro:'กรุณาระบุชื่อนายหน้า เบอร์โทร และ LINE เพื่อสร้างลิงก์เว็บไซต์สำหรับนำเสนอให้ลูกค้า โดยใช้ข้อมูลติดต่อของคุณ',formSub:'A personal link, made for you.',nameLabel:'ชื่อนายหน้า',phoneLabel:'เบอร์โทรศัพท์',lineLabel:'LINE ID',namePlaceholder:'ระบุชื่อของคุณ',linePlaceholder:'LINE ID ของคุณ',confirm:'ยืนยันและสร้างลิงก์',formNote:'ข้อมูลติดต่อบนลิงก์จะเป็นข้อมูลที่คุณกรอกไว้',successTitle:'ยินดีด้วย\nสร้างลิงก์เว็บไซต์สำเร็จแล้ว',successCopy:'คัดลอกลิงก์ของคุณเพื่อส่งให้ลูกค้าได้เลย\nข้อมูลติดต่อทุกอย่างจะเป็นของคุณตามที่กรอกไว้',linkLabel:'ลิงก์เว็บไซต์ของคุณ',copy:'คัดลอกลิงก์',copied:'คัดลอกแล้ว พร้อมส่งให้ลูกค้า',copyFallback:'เลือกลิงก์ไว้แล้ว กรุณากดคัดลอกบนอุปกรณ์ของคุณ',edit:'แก้ไขข้อมูลติดต่อ',seeHomes:'เลื่อนลงเพื่อดูบ้านทั้ง 7 หลัง',customerTagline:'19 ตารางวา ที่เราใส่ใจทุกตารางเมตร',homesTitle:'บ้านที่ใช่ ในแปลงที่คุณเลือก',reserved:'ติดจอง',available:'พร้อมขาย',pending:'รอจอง',sold:'ขายแล้ว',renderNote:'ภาพจำลองประกอบการนำเสนอ',photosTitle:'ทุกมุมของความใส่ใจ',yourAdvisor:'ติดต่อนายหน้า',call:'โทร',galleryError:'โหลดภาพไม่สำเร็จ กรุณารีเฟรชหน้าเว็บ',unit:'แปลง',statusDate:'สถานะตามข้อมูลเดิม อัปเดต',photos:'ภาพ',phoneError:'กรุณาระบุเบอร์โทรศัพท์ให้ถูกต้อง (8–15 หลัก)',nameError:'กรุณาระบุชื่อของคุณ',lineError:'กรุณาระบุ LINE ID โดยไม่มีช่องว่าง'},
     en: {welcomeStep:'The New collection\n19 square wah. Every square metre matters.',next:'Next',made:'Care in every square metre.',back:'Back',formTitle:'Connect your clients\nwith their next home.',formIntro:'Enter your agent name, phone number and LINE ID. We will create a personal property link with your contact details, ready to share with clients.',formSub:'A personal link, made for you.',nameLabel:'Agent name',phoneLabel:'Phone number',lineLabel:'LINE ID',namePlaceholder:'Your name',linePlaceholder:'Your LINE ID',confirm:'Confirm & create my link',formNote:'Your personal link will display the contact details you enter.',successTitle:'Congratulations.\nYour website link is ready.',successCopy:'Copy your link and share it with your clients.\nAll contact details will be the ones you provided.',linkLabel:'Your personal website link',copy:'Copy link',copied:'Link copied. Ready to share.',copyFallback:'Link selected. Please use Copy on your device.',edit:'Edit contact details',seeHomes:'Scroll to explore all seven homes',customerTagline:'19 square wah. Every square metre matters.',homesTitle:'Seven homes. Find your place.',reserved:'Reserved',available:'Available',pending:'Pending reservation',sold:'Sold',renderNote:'Illustrative architectural visualization',photosTitle:'A closer look at every detail',yourAdvisor:'Your property advisor',call:'Call',galleryError:'Photos could not load. Please refresh the page.',unit:'UNIT',statusDate:'Status from the existing records, updated',photos:'PHOTOS',phoneError:'Please enter a valid phone number (8–15 digits).',nameError:'Please enter your name.',lineError:'Please enter a LINE ID without spaces.'}
   };
+  let welcomeTimer = null, welcomeIndex = 0, welcomeLayer = 0;
   let lang = new URLSearchParams(location.search).get('lang') === 'en' ? 'en' : 'th';
   let current = 'welcome', agent = null, gallery = [], lightboxIndex = 0, lastPhotoTrigger = null, slideTimer = null, slideIndex = 0, activeSlide = 0;
   const backgroundImages = ['left','close','carport','front'].map(n=>'renders/exterior-approved/'+n+'.jpg');
@@ -20,6 +21,23 @@
     renderUnits();renderGallery();if(agent)updateLink();
   }
   document.querySelectorAll('[data-language]').forEach(b=>b.addEventListener('click',()=>applyLanguage(b.dataset.language)));
+  const welcomeImages = ['front','left','close','carport'];
+  function stopWelcomeSlides(){clearInterval(welcomeTimer);welcomeTimer=null;}
+  function startWelcomeSlides(){
+    stopWelcomeSlides();
+    const backgrounds=[$('welcome-bg-a'),$('welcome-bg-b')],images=[$('welcome-image-a'),$('welcome-image-b')];
+    backgrounds[welcomeLayer].style.backgroundImage='url("renders/exterior-approved/'+welcomeImages[welcomeIndex]+'.jpg")';
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+    welcomeTimer=setInterval(()=>{
+      if(document.hidden)return;
+      welcomeIndex=(welcomeIndex+1)%welcomeImages.length;
+      welcomeLayer=1-welcomeLayer;
+      const src='renders/exterior-approved/'+welcomeImages[welcomeIndex]+'.jpg';
+      const preload=new Image();
+      preload.onload=()=>{if(current!=='welcome')return;images[welcomeLayer].src=src;backgrounds[welcomeLayer].style.backgroundImage='url("'+src+'")';images[welcomeLayer].classList.add('active');backgrounds[welcomeLayer].classList.add('active');images[1-welcomeLayer].classList.remove('active');backgrounds[1-welcomeLayer].classList.remove('active');$('welcome-count').textContent=String(welcomeIndex+1).padStart(2,'0');};
+      preload.src=src;
+    },9500);
+  }
   function startSlides(){
     stopSlides();slideIndex=0;activeSlide=0;
     $('backdrop-a').style.backgroundImage='url("'+backgroundImages[0]+'")';$('backdrop-a').classList.add('active');$('backdrop-b').classList.remove('active');
@@ -30,6 +48,8 @@
   function show(which,{customer=false,focus=true}={}){
     current=which;['welcome','registration','collection'].forEach(id=>{$(id).hidden=id!==which;});
     document.body.classList.toggle('on-registration',which==='registration');
+    document.body.classList.toggle('on-welcome',which==='welcome');
+    if(which==='welcome')startWelcomeSlides();else stopWelcomeSlides();
     $('advisor').hidden=which!=='collection'||!agent;
     if(which==='registration')startSlides();else stopSlides();
     if(which==='collection'){$('success').hidden=customer;$('customer-intro').hidden=!customer;}
@@ -71,6 +91,7 @@
   // Keep sales status editable without altering the new visual experience.
   fetch('units.json').then(r=>{if(!r.ok)throw Error('units');return r.json();}).then(data=>{if(Array.isArray(data.units)&&data.units.length===7){units.splice(0,units.length,...data.units);renderUnits();if(data.updated)$('status-date').textContent=t('statusDate')+' '+data.updated;}}).catch(()=>{});
   applyLanguage(lang);
+  startWelcomeSlides();
   const params=new URLSearchParams(location.search);
   if(params.get('a')&&params.get('t')&&params.get('l')){agent=cleanAgent({name:params.get('a'),phone:params.get('t'),line:params.get('l')});if(agent.name&&/^\+?\d{8,15}$/.test(agent.phone)&&agent.line&&!/\s/.test(agent.line)){updateContact();updateLink();$('agent-name').value=agent.name;$('agent-phone').value=agent.phone;$('agent-line').value=agent.line;show('collection',{customer:true,focus:false});}else agent=null;}
 })();

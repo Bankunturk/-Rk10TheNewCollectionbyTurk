@@ -8,3 +8,28 @@
 @media(min-width:801px) and (max-height:800px){.welcome{padding-top:95px;padding-bottom:20px}.welcome .greeting{font-size:60px;margin-bottom:16px}.welcome .project-name{font-size:22px;margin-bottom:8px}.welcome .tagline{font-size:12px}.welcome .tagline span[lang=en]{font-size:10px}.welcome-photo{margin-top:20px}.welcome-photo img{max-height:calc(100svh - 425px)}.welcome-footer{margin-top:20px}}
 
 .step-label{white-space:pre-line;line-height:1.8;max-width:300px;font-size:11px}@media(max-width:420px){.step-label{max-width:220px;font-size:10px}}
+
+/* Expressive welcome: slow photographic crossfades, bold type and lime highlights. */
+body.on-welcome{background:#111f19}.on-welcome .topbar{color:#fff}.on-welcome .brand>span{color:#d6f675}
+.welcome{position:relative;isolation:isolate;overflow:hidden;background:#12251d;color:#fff;padding-top:112px;padding-bottom:28px;justify-content:center}
+.welcome-atmosphere,.welcome-bg,.welcome-tint{position:absolute;inset:0;z-index:-3}
+.welcome-bg{background-size:cover;background-position:center;filter:blur(16px) saturate(.8);transform:scale(1.08);opacity:0;transition:opacity 3.2s ease}
+.welcome-bg.active{opacity:1}.welcome-tint{z-index:-2;background:linear-gradient(180deg,rgba(6,21,15,.86),rgba(6,21,15,.48) 50%,rgba(6,21,15,.91)),radial-gradient(ellipse at 10% 0%,#c6ff4744,transparent 65%)}
+.welcome .intro-copy{position:relative;z-index:1}.welcome .eyebrow{display:inline-block;color:#d9f694;border:1px solid #d9f69466;border-radius:30px;padding:7px 14px;margin-bottom:18px;font-size:9px;letter-spacing:2px}
+.welcome .greeting{font-weight:600;font-size:clamp(66px,7.5vw,108px);letter-spacing:-4px;line-height:1.1;margin-bottom:12px;text-shadow:0 3px 35px #0005}
+.welcome .greeting em{color:#d6f675;font-family:var(--font);font-weight:600;font-style:italic;letter-spacing:-6px}
+.welcome .project-name{font-size:clamp(24px,2.8vw,37px);font-weight:600;letter-spacing:-.8px;color:#fff;margin-bottom:7px}
+.welcome .project-name span{font-weight:500;color:#e2e9de}.welcome .tagline{font-size:16px;font-weight:500;color:#fff;line-height:1.65}.welcome .tagline span[lang=en]{color:#cbd5cb;font-size:12px}
+.welcome-photo{position:relative;z-index:1;max-width:1290px;margin-top:25px}.welcome-frame{position:relative;height:clamp(200px,33svh,365px);overflow:hidden;border-radius:13px;border:1px solid #ffffff59;background:#10201888;box-shadow:0 15px 65px #0005;backdrop-filter:blur(9px)}
+.welcome-photo .welcome-slide{position:absolute;inset:0;width:100%;height:100%;max-height:none;object-fit:contain;opacity:0;transition:opacity 3.2s ease;transform:none;border-radius:0}
+.welcome-photo .welcome-slide.active{opacity:1}.welcome-photo figcaption{padding:12px 4px 0;color:#d2dcd0;font-size:9px;letter-spacing:1.7px}.welcome-photo figcaption b{color:#d6f675;font-size:12px}
+.welcome-footer{position:relative;z-index:1;max-width:1290px;margin-top:23px}.welcome .step-label,.welcome .footer-note{color:#e4eadf;font-size:11px}.welcome .step-label{font-weight:500;line-height:1.7}
+.welcome .button.dark{background:#d6f675;color:#132316;border-radius:40px;min-width:170px;min-height:57px;padding:11px 14px 11px 27px;box-shadow:0 5px 28px #c6ff4726;font-size:15px;font-weight:700}
+.welcome .button.dark>span:last-child{display:grid;place-items:center;background:#17281d;color:#d6f675;border-radius:50%;width:35px;height:35px}
+.welcome .button.dark:hover{background:#e7ffac;transform:translateY(-3px)}
+@media(min-width:801px) and (max-height:800px){.welcome{padding-top:88px;padding-bottom:17px}.welcome .greeting{font-size:70px;line-height:1.05;margin-bottom:9px}.welcome .eyebrow{margin-bottom:10px;padding:5px 12px}.welcome .project-name{font-size:27px}.welcome .tagline{font-size:13px}.welcome .tagline span[lang=en]{font-size:10px}.welcome-photo{margin-top:17px}.welcome-frame{height:calc(100svh - 405px);min-height:180px}.welcome-footer{margin-top:17px}.welcome .button.dark{min-height:51px}}
+@media(max-width:800px){.welcome{padding:110px 5% 30px}.welcome .greeting{font-size:67px;gap:18px;letter-spacing:-3px}.welcome .greeting em{letter-spacing:-4px}.welcome .project-name{font-size:26px}.welcome .project-name span{font-size:23px;margin-top:3px}.welcome .tagline{font-size:14px}.welcome .tagline span[lang=en]{font-size:11px}.welcome-photo{width:100%;margin-top:27px}.welcome-frame{height:31svh;min-height:185px;max-height:310px}.welcome-photo figcaption{padding:12px 1px 0;font-size:7px;letter-spacing:.8px}.welcome-footer{margin-top:24px;align-items:center}.welcome .step-label{font-size:10px;max-width:190px}.welcome .button.dark{min-width:134px;padding-left:21px;gap:18px}.welcome .eyebrow{font-size:8px;letter-spacing:1.3px}}
+@media(max-width:420px){.welcome .greeting{font-size:59px;gap:15px}.welcome .project-name{font-size:24px}.welcome .project-name span{font-size:21px}.welcome .tagline{font-size:12px}.welcome .tagline span[lang=en]{font-size:10px}.welcome .step-label{max-width:175px;font-size:9px}.welcome .button.dark{min-width:125px;font-size:13px;padding-left:18px;gap:13px}.welcome-frame{height:27svh}.welcome .eyebrow{margin-bottom:16px}}
+@media(prefers-reduced-motion:reduce){.welcome-bg,.welcome-slide{transition:none!important}}
+
+@media(min-width:801px) and (max-height:800px){.welcome-frame{height:calc(100svh - 445px);min-height:160px}}
