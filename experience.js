@@ -95,5 +95,5 @@
   applyLanguage(lang);
   startWelcomeSlides();
   const params=new URLSearchParams(location.search);
-  if(params.get('a')&&params.get('t')){agent=cleanAgent({name:params.get('a'),phone:params.get('t'),line:params.get('l')});if(agent.name&&/^\+?\d{8,15}$/.test(agent.phone)&&!/\s/.test(agent.line)){updateContact();updateLink();$('agent-name').value=agent.name;$('agent-phone').value=agent.phone;$('agent-line').value=agent.line;customerMode=true;$('next').querySelector('[data-i18n="next"]').textContent=lang==='th'?'เข้าชมบ้าน':'Explore the homes';document.querySelector('.topbar .brand').href=location.pathname+location.search;show('welcome',{focus:false});}else agent=null;}
+  if(params.get('a')&&params.get('t')){agent=cleanAgent({name:params.get('a'),phone:params.get('t'),line:params.get('l')});if(agent.name&&/^\+?\d{8,15}$/.test(agent.phone)&&!/\s/.test(agent.line)){updateContact();updateLink();$('agent-name').value=agent.name;$('agent-phone').value=agent.phone;$('agent-line').value=agent.line;customerMode=true;document.body.classList.add('is-customer');$('next').querySelector('[data-i18n="next"]').textContent=lang==='th'?'เข้าชมบ้าน':'Explore the homes';document.querySelector('.topbar .brand').href=location.pathname+location.search;show('welcome',{focus:false});}else agent=null;}
 })();
