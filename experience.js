@@ -21,7 +21,7 @@
     document.querySelectorAll('[data-language]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.language===lang)));
     $('personal-link').setAttribute('aria-label',t('linkLabel'));
     renderUnits();renderGallery();if(agent)updateLink();
-    if(customerMode)$('next').querySelector('[data-i18n="next"]').textContent=lang==='th'?'เข้าชมบ้าน':'Explore the homes';
+    $('next').querySelector('[data-i18n="next"]').textContent=lang==='th'?'เข้าชมบ้าน':'Explore the homes';
   }
   document.querySelectorAll('[data-language]').forEach(b=>b.addEventListener('click',()=>applyLanguage(b.dataset.language)));
   const welcomeImages = ['left','front','close','carport'];
@@ -51,16 +51,21 @@
   function show(which,{customer=false,focus=true}={}){
     current=which;['welcome','registration','collection'].forEach(id=>{$(id).hidden=id!==which;});
     document.body.classList.toggle('on-registration',which==='registration');
+    document.body.classList.toggle('is-agent',!customer&&which!=='welcome');
+    document.body.classList.toggle('is-customer',customer||which==='welcome'&&customerMode);
     document.body.classList.toggle('on-welcome',which==='welcome');
     if(which==='welcome')startWelcomeSlides();else stopWelcomeSlides();
     $('advisor').hidden=which!=='collection'||!agent;
     if(which==='registration')startSlides();else stopSlides();
-    if(which==='collection'){$('success').hidden=customer;$('customer-intro').hidden=!customer;}
+    if(which==='collection'){$('success').hidden=customer||!agent;$('customer-intro').hidden=!customer;}
     window.scrollTo({top:0,behavior:'instant'});
     if(focus){const target=which==='registration'?$('agent-name'):which==='collection'?(customer?$('customer-intro').querySelector('h1'):$('result-title')):$('welcome-title');if(target.tagName!=='INPUT')target.setAttribute('tabindex','-1');target.focus({preventScroll:true});}
   }
-  $('next').addEventListener('click',()=>customerMode?show('collection',{customer:true}):show('registration'));
-  $('back').addEventListener('click',()=>show('welcome'));
+  $('next').addEventListener('click',()=>show('collection',{customer:true}));
+  $('agent-entry').addEventListener('click',()=>show('collection',{customer:false}));
+  $('agent-create').addEventListener('click',()=>show('registration'));
+  $('customer-entry').addEventListener('click',()=>show('collection',{customer:true}));
+  $('back').addEventListener('click',()=>show('collection',{customer:true}));
   $('edit-agent').addEventListener('click',()=>show('registration'));
   function cleanAgent(a){return {name:a.name.trim().slice(0,80),phone:a.phone.trim().replace(/[^\d+]/g,''),line:(a.line||'').trim().replace(/^@/,'').slice(0,60)};}
   function updateContact(){
@@ -98,6 +103,7 @@
   applyLanguage(lang);
   startWelcomeSlides();
   const params=new URLSearchParams(location.search);
-  if(params.get('a')&&params.get('t')){agent=cleanAgent({name:params.get('a'),phone:params.get('t'),line:params.get('l')});if(agent.name&&/^\+?\d{8,15}$/.test(agent.phone)&&!/\s/.test(agent.line)){updateContact();updateLink();$('agent-name').value=agent.name;$('agent-phone').value=agent.phone;$('agent-line').value=agent.line;customerMode=true;document.body.classList.add('is-customer');$('next').querySelector('[data-i18n="next"]').textContent=lang==='th'?'เข้าชมบ้าน':'Explore the homes';document.querySelector('.topbar .brand').href=location.pathname+location.search;show('welcome',{focus:false});}else agent=null;}
+  if(params.get('a')&&params.get('t')){agent=cleanAgent({name:params.get('a'),phone:params.get('t'),line:params.get('l')});if(agent.name&&/^\+?\d{8,15}$/.test(agent.phone)&&!/\s/.test(agent.line)){updateContact();updateLink();$('agent-name').value=agent.name;$('agent-phone').value=agent.phone;$('agent-line').value=agent.line;customerMode=true;document.body.classList.add('is-customer');$('next').querySelector('[data-i18n="next"]').textContent=lang==='th'?'เข้าชมบ้าน':'Explore the homes';document.querySelector('.topbar .brand').href=location.pathname+location.search;$('agent-entry').hidden=true;}else agent=null;}
+  show('collection',{customer:location.hash!=='#agents'||customerMode,focus:false});
 })();
 
